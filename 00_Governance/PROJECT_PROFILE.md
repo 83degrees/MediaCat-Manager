@@ -7,8 +7,9 @@ MediaCat Manager bootstrap.
 
 ## Document status
 
-- Governance state: approved target pending ASTV-277 acceptance
-- Last approved through Linear: `ASTV-275` design baseline
+- Governance state: approved current bootstrap baseline; ASTV-286 editor scope remains deferred
+- Design baseline: `ASTV-275`
+- Bootstrap implementation completed through Linear: `ASTV-277`
 
 ## Product identity
 
@@ -56,7 +57,7 @@ requiring repository credentials in Home Assistant.
 ## Approved architecture location
 
 - Approved architecture location: `01_Architecture/MEDIACAT_MANAGER_ARCHITECTURE.md`
-- Architecture state: approved target pending ASTV-277 acceptance
+- Architecture state: approved current bootstrap architecture; ASTV-286 editor scope remains deferred
 - Material DDRs: None; ASTV-275 is the accepted design parent for this bootstrap
 
 ## Contracts provided
@@ -100,6 +101,6 @@ None in the ASTV-277 bootstrap.
 ## Governance and work control
 
 - Linear project/team: `MediaCat Manager 2026.10` / `ASTV`
-- Current governing issues: `ASTV-277`; design parent `ASTV-275`; later editor issue `ASTV-286`
+- Design parent: `ASTV-275`; bootstrap implementation: `ASTV-277` (Done); later editor issue: `ASTV-286`
 - Applicable change classes: `Change: Code`, `Change: Architecture`, `Change: Documentation`, `Change: Governance`, `Change: Governance Tooling`
 - Repository workflow: WF-01 issue PR targets persistent `beta`; accepted Beta content is promoted unchanged to `main` after validation.
