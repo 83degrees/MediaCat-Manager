@@ -2,13 +2,13 @@
 
 ## Profile conformance
 
-This profile contains the required product-profile subjects for the implemented
-MediaCat Manager bootstrap.
+This profile contains the required product-profile subjects for MediaCat
+Manager.
 
 ## Document status
 
-- Governance state: approved target pending ASTV-277 acceptance
-- Last approved through Linear: `ASTV-275` design baseline
+- Governance state: ASTV-286 implementation candidate pending human acceptance
+- Last approved through Linear: `ASTV-277` bootstrap; `ASTV-286` is the current implementation issue
 
 ## Product identity
 
@@ -47,7 +47,7 @@ requiring repository credentials in Home Assistant.
 
 | Boundary or capability | Relationship | Owner | Notes |
 | --- | --- | --- | --- |
-| Ingress UI and catalogue administration workflow | owned | MediaCat Manager | The ASTV-277 bootstrap provides the shell only; editor workflows remain in ASTV-286. |
+| Ingress UI and catalogue administration workflow | owned | MediaCat Manager | Typed catalogue/item/category editing, validation orchestration, history/revert and asset selection are implemented by ASTV-286. |
 | Catalogue write safety and local history | owned | MediaCat Manager | Writes are confined by code to `/config/mediacat/catalogues/`; history is confined to App-private `/data/history/`. |
 | Catalogue schema, validation and transactional runtime reload | consumed | MediaCat | Used only through `MEDIACAT_ADMIN_INTERFACE.md`; not duplicated locally. |
 | Local `ha-assets` mirror | consumed read-only | ha-assets-sync | Reads are confined by code to `/config/www/ha-assets/`; the Manager never writes the mirror. |
@@ -56,12 +56,12 @@ requiring repository credentials in Home Assistant.
 ## Approved architecture location
 
 - Approved architecture location: `01_Architecture/MEDIACAT_MANAGER_ARCHITECTURE.md`
-- Architecture state: approved target pending ASTV-277 acceptance
-- Material DDRs: None; ASTV-275 is the accepted design parent for this bootstrap
+- Architecture state: ASTV-286 implementation candidate; ASTV-277 is the accepted bootstrap baseline
+- Material DDRs: None; ASTV-275 is the accepted design parent
 
 ## Contracts provided
 
-None in the ASTV-277 bootstrap.
+None.
 
 ## Contracts consumed
 
@@ -95,11 +95,11 @@ None in the ASTV-277 bootstrap.
 - Evidence route: exact repository/SHA validation plus runtime evidence from an authorised Home Assistant instance.
 - Secrets and mutable-state boundary: no repository credential is stored; catalogue files and App-private history remain on the Home Assistant instance outside governed source.
 - Validation evidence route: repository CI and runtime evidence recorded against the governing Linear issue.
-- Known limitations: ASTV-277 establishes the shell and safety foundation; editing, history UI/revert and asset-picker features are deferred to ASTV-286.
+- Known limitations: the Manager supports the current MediaCat administration interface and schema-v4 typed fields; import/export, repository write-back and arbitrary YAML editing remain intentionally out of scope.
 
 ## Governance and work control
 
 - Linear project/team: `MediaCat Manager 2026.10` / `ASTV`
-- Current governing issues: `ASTV-277`; design parent `ASTV-275`; later editor issue `ASTV-286`
+- Current governing issue: `ASTV-286`; completed bootstrap `ASTV-277`; design parent `ASTV-275`
 - Applicable change classes: `Change: Code`, `Change: Architecture`, `Change: Documentation`, `Change: Governance`, `Change: Governance Tooling`
 - Repository workflow: WF-01 issue PR targets persistent `beta`; accepted Beta content is promoted unchanged to `main` after validation.

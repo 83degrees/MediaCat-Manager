@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MediaCat Manager</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div><span class="eyebrow">Home Assistant</span><h1>MediaCat Manager</h1></div>
+    <div id="provider-status" class="status waiting">Checking MediaCat…</div>
+  </header>
+  <main>
+    <aside>
+      <label for="catalogue-select">Catalogue</label>
+      <select id="catalogue-select"><option value="">Select a catalogue</option></select>
+      <p id="catalogue-file" class="muted"></p>
+      <div class="tabs">
+        <button data-tab="items" class="active">Items</button>
+        <button data-tab="categories">Categories</button>
+      </div>
+      <div class="list-heading"><strong id="list-title">Items</strong><button id="add-record">Add</button></div>
+      <div id="record-list" class="record-list"></div>
+    </aside>
+    <section class="workspace">
+      <div id="empty-state" class="empty-state">
+        <h2>Select a catalogue</h2>
+        <p>Catalogue identity comes from the document, never the filename.</p>
+      </div>
+      <form id="editor" class="hidden">
+        <div class="toolbar">
+          <div><span class="eyebrow">Editing</span><h2 id="record-heading"></h2></div>
+          <div class="actions"><button type="button" id="history">History</button><button type="button" id="delete-record" class="danger">Delete</button><button type="submit" class="primary">Validate &amp; save</button></div>
+        </div>
+        <div id="item-fields">
+          <div class="grid two"><label>Item ID<input id="item-id" pattern="[a-z0-9][a-z0-9_-]*" required></label><label>Label<input id="item-label" required></label></div>
+          <div class="grid two"><label>Type<select id="item-type"></select></label><label>Tags<input id="item-tags" placeholder="radio, uk, music"></label></div>
+          <label>Description<textarea id="item-description" rows="3"></textarea></label>
+          <fieldset><legend>Type metadata</legend><div id="metadata-fields" class="grid two"></div></fieldset>
+          <fieldset><legend>Artwork</legend><div class="grid artwork-row"><label>Source<select id="artwork-source"><option value="">None</option><option value="ha-assets">ha-assets</option><option value="direct">Direct</option></select></label><label>Path / local URL<input id="artwork-path"></label><label>External URL<input id="artwork-external"></label><button type="button" id="pick-asset">Browse assets</button></div></fieldset>
+          <fieldset><legend>Execution methods</legend><div id="method-list"></div><button type="button" id="add-method">Add method</button></fieldset>
+        </div>
+        <div id="category-fields" class="hidden">
+          <div class="grid two"><label>Category ID<input id="category-id" pattern="[a-z0-9][a-z0-9_-]*" required></label><label>Label<input id="category-label" required></label></div>
+          <fieldset><legend>Items</legend><div id="category-items" class="check-grid"></div></fieldset>
+        </div>
+      </form>
+    </section>
+  </main>
+  <div id="message" role="status" class="message hidden"></div>
+  <dialog id="asset-dialog"><div class="dialog-heading"><h2>Choose artwork</h2><button data-close="asset-dialog">Close</button></div><nav id="asset-breadcrumb"></nav><div id="asset-grid" class="asset-grid"></div></dialog>
+  <dialog id="history-dialog"><div class="dialog-heading"><h2>Catalogue history</h2><button data-close="history-dialog">Close</button></div><div id="history-list"></div><pre id="history-diff"></pre></dialog>
+  <script src="app.js" defer></script>
+</body>
+</html>

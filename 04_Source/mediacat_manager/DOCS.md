@@ -1,10 +1,12 @@
 # MediaCat Manager
 
-The ASTV-277 release is an authenticated Ingress shell and governed safety
-foundation. It does not yet edit catalogue files.
+MediaCat Manager is an authenticated Ingress catalogue editor built on the
+ASTV-277 safety foundation and completed by ASTV-286.
 
 After installation, open **MediaCat Manager** from the Home Assistant sidebar.
-The shell reports the configured catalogue, asset and history boundaries.
+The UI discovers catalogues by their in-file `catalogue_id`, provides typed item
+and category controls, validates complete candidates through MediaCat, performs
+atomic replacement, and reports structured reload results.
 
 Required local paths:
 
@@ -14,5 +16,6 @@ Required local paths:
   path `/homeassistant/www/ha-assets/`);
 - Manager history: App-private `/data/history/`.
 
-MediaCat must provide version 1 of its governed administration interface before
-the later ASTV-286 editor workflow is enabled.
+MediaCat must provide version 1 of its governed administration interface.
+History snapshots are retained under App-private `/data/history/`, and the
+visual artwork picker can read but never modify the `ha-assets` mirror.
