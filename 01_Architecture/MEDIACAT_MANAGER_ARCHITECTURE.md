@@ -2,7 +2,7 @@
 
 ## Status and authority
 
-- State: approved target pending ASTV-277 acceptance
+- State: approved current bootstrap architecture; ASTV-286 editor scope remains deferred
 - Design parent: `ASTV-275`
 - Bootstrap issue: `ASTV-277`
 - Later editor implementation: `ASTV-286`
