@@ -1,9 +1,11 @@
-"""Catalogue storage primitives; not exposed by the ASTV-277 HTTP shell."""
+"""Durable catalogue and bounded-history storage primitives."""
 
 from __future__ import annotations
 
 import os
+import shutil
 import tempfile
+from datetime import datetime, timezone
 from pathlib import Path
 
 from path_policy import FilesystemPolicy
@@ -16,9 +18,8 @@ def atomic_replace_catalogue(
 ) -> Path:
     """Atomically replace one policy-approved catalogue file.
 
-    Validation, snapshot retention and MediaCat reload orchestration belong to
-    the ASTV-286 workflow. This primitive is deliberately unavailable through
-    the bootstrap HTTP surface.
+    Validation, snapshot retention and MediaCat reload are orchestrated by the
+    catalogue service before and after this narrowly scoped primitive.
     """
 
     destination = policy.catalogue_file(relative_name)
@@ -39,6 +40,44 @@ def atomic_replace_catalogue(
     except BaseException:
         temporary.unlink(missing_ok=True)
         raise
+    return destination
+
+
+def snapshot_catalogue(
+    policy: FilesystemPolicy,
+    catalogue_id: str,
+    source: Path,
+    *,
+    keep: int = 20,
+) -> Path:
+    """Copy the current file into bounded Manager-owned history."""
+
+    if keep < 1:
+        raise ValueError("history retention must be at least one snapshot")
+    history = policy.history_directory(catalogue_id)
+    history.mkdir(parents=True, exist_ok=True)
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
+    destination = history / f"{timestamp}.yaml"
+    descriptor, temporary_name = tempfile.mkstemp(
+        dir=history,
+        prefix=f".{timestamp}.",
+        suffix=".tmp",
+    )
+    temporary = Path(temporary_name)
+    try:
+        with source.open("rb") as source_handle, os.fdopen(descriptor, "wb") as handle:
+            shutil.copyfileobj(source_handle, handle)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary, destination)
+        _sync_directory(history)
+    except BaseException:
+        temporary.unlink(missing_ok=True)
+        raise
+
+    snapshots = sorted(history.glob("*.yaml"), key=lambda path: path.name, reverse=True)
+    for expired in snapshots[keep:]:
+        expired.unlink()
     return destination
 
 

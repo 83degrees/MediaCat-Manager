@@ -9,8 +9,10 @@ LABEL \
   io.hass.arch="${BUILD_ARCH}"
 
 COPY run.sh /run.sh
+COPY requirements.txt /requirements.txt
 COPY app /app
 
-RUN chmod a+x /run.sh
+RUN pip3 install --no-cache-dir -r /requirements.txt \
+    && chmod a+x /run.sh
 
 CMD ["/run.sh"]

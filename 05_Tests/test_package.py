@@ -22,12 +22,18 @@ class PackageTests(unittest.TestCase):
         self.assertIn('io.hass.type="app"', dockerfile)
         self.assertIn("exec python3 /app/main.py", run_script)
 
-    def test_bootstrap_contains_no_editor_or_secret_configuration(self):
+    def test_editor_contains_no_secret_configuration(self):
         config = (APP / "config.yaml").read_text(encoding="utf-8")
         self.assertIn("options: {}", config)
         self.assertIn("schema: {}", config)
         self.assertNotIn("password", config.lower())
         self.assertNotIn("token", config.lower())
+
+    def test_runtime_installs_the_pinned_yaml_dependency(self):
+        dockerfile = (APP / "Dockerfile").read_text(encoding="utf-8")
+        requirements = (APP / "requirements.txt").read_text(encoding="utf-8")
+        self.assertIn("pip3 install --no-cache-dir", dockerfile)
+        self.assertEqual(requirements.strip(), "PyYAML==6.0.3")
 
 
 if __name__ == "__main__":

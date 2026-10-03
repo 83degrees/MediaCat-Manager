@@ -3,9 +3,10 @@
 MediaCat Manager is a private Home Assistant App that provides the local,
 Ingress-hosted administration surface for MediaCat catalogue files.
 
-This bootstrap intentionally contains only the governed App shell, filesystem
-safety primitives, architecture and tests. The typed catalogue editor, history
-browser/revert workflow and visual asset picker remain in `ASTV-286`.
+The App provides typed schema-v4 item and category editing, MediaCat-owned
+validation and reload orchestration, atomic catalogue replacement, bounded
+local history with diff/revert, and a visual read-only picker for the local
+`ha-assets` mirror.
 
 ## Repository layout
 
@@ -25,3 +26,8 @@ python -m unittest discover -s 05_Tests -p "test_*.py"
 The Home Assistant App repository can be added from
 `https://github.com/83degrees/MediaCat-Manager` once an accepted release is
 available.
+
+Normal catalogue changes are validated by MediaCat before any write. Each
+successful replacement first snapshots the current file under App-private
+history. A failed MediaCat reload is reported without discarding the new file or
+the evidence needed to inspect and restore it.

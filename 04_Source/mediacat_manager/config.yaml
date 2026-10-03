@@ -1,7 +1,7 @@
 name: "MediaCat Manager"
-version: "0.1.0"
+version: "0.2.0"
 slug: "mediacat_manager"
-description: "Local Ingress administration shell for MediaCat catalogues."
+description: "Safe local Ingress editor for MediaCat catalogues."
 url: "https://github.com/83degrees/MediaCat-Manager"
 arch:
   - aarch64
