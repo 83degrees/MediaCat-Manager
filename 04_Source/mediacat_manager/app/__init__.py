@@ -1,1 +1,1 @@
-"""MediaCat Manager bootstrap package."""
+"""MediaCat Manager application package."""

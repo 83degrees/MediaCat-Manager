@@ -1,6 +1,6 @@
 # Consumed contracts
 
-MediaCat Manager provides no contract in the ASTV-277 bootstrap.
+MediaCat Manager provides no external product contract.
 
 It consumes the provider-owned MediaCat administration contract:
 
