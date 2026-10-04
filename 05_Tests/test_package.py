@@ -16,6 +16,13 @@ class PackageTests(unittest.TestCase):
         self.assertNotIn("ports:", config)
         self.assertNotIn("ports_description:", config)
 
+    def test_ingress_ui_has_responsive_overflow_guards(self):
+        styles = (APP / "app" / "static" / "styles.css").read_text(encoding="utf-8")
+        self.assertIn("grid-template-columns: minmax(15rem,19rem) minmax(0,1fr)", styles)
+        self.assertIn(".workspace { min-width: 0", styles)
+        self.assertIn("@media (max-width: 1100px)", styles)
+        self.assertIn("max-width: calc(100vw - 2rem)", styles)
+
     def test_package_uses_expected_python_app_entrypoint(self):
         dockerfile = (APP / "Dockerfile").read_text(encoding="utf-8")
         run_script = (APP / "run.sh").read_text(encoding="utf-8")
