@@ -7,8 +7,8 @@ Manager.
 
 ## Document status
 
-- Governance state: ASTV-286 implementation candidate pending human acceptance
-- Last approved through Linear: `ASTV-277` bootstrap; `ASTV-286` is the current implementation issue
+- Governance state: ASTV-317 controlled deployment-structure migration candidate
+- Product implementation baseline: `ASTV-286`; deployment-structure migration: `ASTV-317`
 
 ## Product identity
 
@@ -22,7 +22,7 @@ Manager.
 
 ## Purpose
 
-MediaCat Manager provides a private, local Home Assistant Ingress application
+MediaCat Manager provides a local, authenticated Home Assistant Ingress application
 for safely administering the catalogue files consumed by MediaCat without
 requiring repository credentials in Home Assistant.
 
@@ -39,7 +39,7 @@ requiring repository credentials in Home Assistant.
 ### Out of scope
 
 - MediaCat schema, validation, runtime loading, reload or capability authority.
-- Direct GitHub write-back or private-repository credentials in Home Assistant.
+- Direct GitHub write-back or repository credentials in Home Assistant.
 - General Home Assistant YAML administration.
 - Import/export, cross-instance synchronisation or secret management.
 
@@ -91,15 +91,24 @@ None.
 
 ## Production and evidence route
 
-- Production route: private Home Assistant App repository installed through the Home Assistant App store and exposed only through authenticated Ingress.
-- Evidence route: exact repository/SHA validation plus runtime evidence from an authorised Home Assistant instance.
-- Secrets and mutable-state boundary: no repository credential is stored; catalogue files and App-private history remain on the Home Assistant instance outside governed source.
+- Deployable unit: MediaCat Manager Home Assistant App.
+- Deployment classification: `haos_app` via the approved `app_repository` mechanism.
+- Authoritative source: `04_Implementation/haos/source/apps/mediacat_manager/**`.
+- Target: Home Assistant OS Supervisor, installed through the App store and exposed only through authenticated Ingress.
+- Stable repository source: `https://github.com/83degrees/MediaCat-Manager` using accepted `main` content.
+- Beta repository source: `https://github.com/83degrees/MediaCat-Manager#beta`.
+- Platform-required root exception: `repository.yaml` is the only root deployment descriptor; no root App implementation is permitted.
+- Visibility model: `83degrees/MediaCat-Manager` is a public repository and Supervisor accesses it anonymously; this deployment route does not require or authorise a visibility transition.
+- Evidence route: exact repository source, branch, App version and Git SHA plus preflight, install/update and runtime evidence from an authorised Home Assistant instance, recorded against the governing Linear issue.
+- Data-preservation boundary: App configuration, catalogue files and App-private `/data/history/` remain on the Home Assistant instance and must be preserved through source changes, update and rollback; no repository credential is required or stored in Home Assistant.
+- Rollback route: restore the recorded prior working repository source, candidate and App version while preserving Supervisor App identity and App-private data; removal/reinstallation is not the default recovery route.
+- Operator procedure: `08_Deployment/HOME_ASSISTANT_APP_DEPLOYMENT_RUNBOOK.md`.
 - Validation evidence route: repository CI and runtime evidence recorded against the governing Linear issue.
 - Known limitations: the Manager supports the current MediaCat administration interface and schema-v4 typed fields; import/export, repository write-back and arbitrary YAML editing remain intentionally out of scope.
 
 ## Governance and work control
 
 - Linear project/team: `MediaCat Manager 2026.10` / `ASTV`
-- Current governing issue: `ASTV-286`; completed bootstrap `ASTV-277`; design parent `ASTV-275`
+- Current governing issue: `ASTV-317`; product implementation `ASTV-286`; completed bootstrap `ASTV-277`; design parent `ASTV-275`
 - Applicable change classes: `Change: Code`, `Change: Architecture`, `Change: Documentation`, `Change: Governance`, `Change: Governance Tooling`
 - Repository workflow: WF-01 issue PR targets persistent `beta`; accepted Beta content is promoted unchanged to `main` after validation.

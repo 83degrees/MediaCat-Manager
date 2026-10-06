@@ -14,12 +14,13 @@ picker within those accepted boundaries.
 
 ## Product boundary
 
-MediaCat Manager is a separate governed product and private repository. It owns
+MediaCat Manager is a separate governed product in a public repository. It owns
 the local administration experience and file-safety mechanics. MediaCat remains
 the sole authority for catalogue schema meaning, validation, runtime loading,
 capability reporting and transactional active-registry reload.
 
-Normal operation has no dependency on GitHub and no private-repository
+After installation, normal App operation has no dependency on GitHub. Install
+and update use the public App repository anonymously, and no repository
 credential is present in the Home Assistant App.
 
 ## Runtime components
