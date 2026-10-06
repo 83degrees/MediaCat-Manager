@@ -22,7 +22,7 @@ Manager.
 
 ## Purpose
 
-MediaCat Manager provides a private, local Home Assistant Ingress application
+MediaCat Manager provides a local, authenticated Home Assistant Ingress application
 for safely administering the catalogue files consumed by MediaCat without
 requiring repository credentials in Home Assistant.
 
@@ -39,7 +39,7 @@ requiring repository credentials in Home Assistant.
 ### Out of scope
 
 - MediaCat schema, validation, runtime loading, reload or capability authority.
-- Direct GitHub write-back or private-repository credentials in Home Assistant.
+- Direct GitHub write-back or repository credentials in Home Assistant.
 - General Home Assistant YAML administration.
 - Import/export, cross-instance synchronisation or secret management.
 
@@ -98,9 +98,9 @@ None.
 - Stable repository source: `https://github.com/83degrees/MediaCat-Manager` using accepted `main` content.
 - Beta repository source: `https://github.com/83degrees/MediaCat-Manager#beta`.
 - Platform-required root exception: `repository.yaml` is the only root deployment descriptor; no root App implementation is permitted.
-- Visibility model: the repository remains private except for an explicitly authorised, bounded public window when anonymous Supervisor access is required.
+- Visibility model: `83degrees/MediaCat-Manager` is a public repository and Supervisor accesses it anonymously; this deployment route does not require or authorise a visibility transition.
 - Evidence route: exact repository source, branch, App version and Git SHA plus preflight, install/update and runtime evidence from an authorised Home Assistant instance, recorded against the governing Linear issue.
-- Data-preservation boundary: App configuration, catalogue files and App-private `/data/history/` remain on the Home Assistant instance and must be preserved through source changes, update and rollback; no repository credential is stored in Home Assistant.
+- Data-preservation boundary: App configuration, catalogue files and App-private `/data/history/` remain on the Home Assistant instance and must be preserved through source changes, update and rollback; no repository credential is required or stored in Home Assistant.
 - Rollback route: restore the recorded prior working repository source, candidate and App version while preserving Supervisor App identity and App-private data; removal/reinstallation is not the default recovery route.
 - Operator procedure: `08_Deployment/HOME_ASSISTANT_APP_DEPLOYMENT_RUNBOOK.md`.
 - Validation evidence route: repository CI and runtime evidence recorded against the governing Linear issue.

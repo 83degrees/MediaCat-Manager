@@ -1,7 +1,7 @@
 # MediaCat Manager
 
-MediaCat Manager is a private Home Assistant App that provides the local,
-Ingress-hosted administration surface for MediaCat catalogue files.
+MediaCat Manager is a Home Assistant App that provides a local, authenticated
+Ingress administration surface for MediaCat catalogue files.
 
 The App provides typed schema-v4 item and category editing, MediaCat-owned
 validation and reload orchestration, atomic catalogue replacement, bounded
