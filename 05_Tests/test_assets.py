@@ -3,7 +3,7 @@ import unittest
 from pathlib import Path
 
 import sys
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "04_Source" / "mediacat_manager" / "app"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "04_Implementation" / "haos" / "source" / "apps" / "mediacat_manager" / "app"))
 
 from assets import AssetBrowser
 from path_policy import FilesystemPolicy, PathPolicyError

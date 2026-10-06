@@ -3,10 +3,16 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-APP = ROOT / "04_Source" / "mediacat_manager"
+APP = ROOT / "04_Implementation" / "haos" / "source" / "apps" / "mediacat_manager"
 
 
 class PackageTests(unittest.TestCase):
+    def test_app_package_uses_canonical_location_without_legacy_duplicate(self):
+        self.assertTrue(APP.is_dir())
+        self.assertFalse((ROOT / "04_Source" / "mediacat_manager").exists())
+        self.assertTrue((ROOT / "repository.yaml").is_file())
+        self.assertFalse((ROOT / "config.yaml").exists())
+
     def test_home_assistant_app_declares_ingress_and_no_host_port(self):
         config = (APP / "config.yaml").read_text(encoding="utf-8")
         self.assertIn('slug: "mediacat_manager"', config)
